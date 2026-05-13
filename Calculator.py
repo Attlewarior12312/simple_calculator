@@ -1,28 +1,27 @@
 import tkinter as tk
 
-# --- 1. DEFINIOWANIE FUNKCJI ---
 
 def kliknij(znak):
-    # tk.END oznacza, że dopisujemy nowy znak na samym końcu obecnego tekstu
+    
     ekran.insert(tk.END, znak)
 
 def wyczysc():
-    # Usuwamy tekst od indeksu 0 (początek) do samego końca (tk.END)
+    
     ekran.delete(0, tk.END)
 
 def oblicz():
     try:
-        # Pobieramy to, co jest wpisane na ekranie (np. "5+5")
+        
         dzialanie = ekran.get()
         
-        # Wbudowana funkcja eval() potrafi automatycznie rozwiązać matematyczne równanie zapisane jako tekst!
+        
         wynik = str(eval(dzialanie))
         
-        # Czyścimy ekran i wrzucamy gotowy wynik
+       
         wyczysc()
         ekran.insert(0, wynik)
         
-    # Nasze zabezpieczenie z konsoli przydaje się i tutaj
+    
     except ZeroDivisionError:
         wyczysc()
         ekran.insert(0, "Nie dziel przez 0!")
@@ -30,7 +29,7 @@ def oblicz():
         wyczysc()
         ekran.insert(0, "Błąd")
 
-# --- 2. TWORZENIE OKNA I EKRANU ---
+
 
 okno = tk.Tk()
 okno.title("Mój Kalkulator")
@@ -39,9 +38,7 @@ okno.geometry("300x400")
 ekran = tk.Entry(okno, font=("Arial", 20), justify="right")
 ekran.grid(row=0, column=0, columnspan=4)
 
-# --- 3. TWORZENIE PRZYCISKÓW Z FUNKCJAMI ---
 
-# Używamy lambda, by przekazać konkretny znak do funkcji kliknij()
 button_1 = tk.Button(okno, text="1", font=("Arial", 14), width=5, height=2, command=lambda: kliknij("1"))
 button_2 = tk.Button(okno, text="2", font=("Arial", 14), width=5, height=2, command=lambda: kliknij("2"))
 button_3 = tk.Button(okno, text="3", font=("Arial", 14), width=5, height=2, command=lambda: kliknij("3"))
@@ -58,11 +55,10 @@ button_minus = tk.Button(okno, text="-", font=("Arial", 14), width=5, height=2, 
 button_multi = tk.Button(okno, text="*", font=("Arial", 14), width=5, height=2, command=lambda: kliknij("*"))
 button_divide = tk.Button(okno, text="/", font=("Arial", 14), width=5, height=2, command=lambda: kliknij("/"))
 
-# Tu nie używamy lambda, bo funkcje nie przyjmują żadnych parametrów
+
 button_clear = tk.Button(okno, text="C", font=("Arial", 14), width=5, height=2, command=wyczysc)
 button_equals = tk.Button(okno, text="=", font=("Arial", 14), width=5, height=2, command=oblicz)
 
-# --- 4. UKŁADANIE W SIATCE (GRID) ---
 
 button_7.grid(row=1, column=0)
 button_8.grid(row=1, column=1)
@@ -84,5 +80,4 @@ button_0.grid(row=4, column=1)
 button_equals.grid(row=4, column=2)
 button_plus.grid(row=4, column=3)
 
-# Główna pętla programu
 okno.mainloop()
